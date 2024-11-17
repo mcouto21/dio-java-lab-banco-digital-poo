@@ -16,3 +16,21 @@ Permite que você defina uma classe filha que reutiliza (herda), estende ou modi
 
 ### Polimorfismo
 Capacidade de um objeto poder ser referenciado de várias formas, ou seja, é capacidade de tratar objetos criados a partir das classes específicas como objetos de uma classe genérica. Cuidado, polimorfismo não quer dizer que o objeto fica se transformando, muito pelo contrário, um objeto nasce de um tipo e morre daquele tipo, o que pode mudar é a maneira como nos referimos a ele.
+
+---
+
+## Atualizações no projeto
+
+### IConta.java
+- Alterado tipo de retorno das fuções sacar() e depositar(), de void para Boolean
+
+### Conta.java
+- Adicionado atributo tipoConta, assim como seu getter, para diferenciar o tipo de conta da instância do objeto.
+- Adicionada função verificarTipoConta() que verifica a instância da classe e retorna o tipo da conta atual
+- Atualizado construtor para atualizar o tipo da conta na inicialização
+- Adicionadas mensagens e algumas validações nas funções sacar(), depositar() e transferir()
+- Alterado tipo de retorno das funções sacar() e depositar(), de void para Boolean
+- Atualizada função imprimirInfosComuns(), formatando mensagem e adicionando tipo de conta
+
+### Main.java
+- Adicionados alguns testes de saque, deposito e transferências

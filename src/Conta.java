@@ -12,40 +12,41 @@ public abstract class Conta implements IConta {
 		this.numeroAgencia = Conta.AGENCIA_PADRAO;
 		this.numeroConta = SEQUENCIAL++;
 		this.cliente = cliente;
-		this.tipoConta = this.verificaTipoConta();
+		this.tipoConta = this.verificarTipoConta();
 	}
 
 	@Override
-	public void sacar(double valor) {
+	public Boolean sacar(double valor) {
 		if (valor == 0d) {
 			System.out.println(String.format("Nenhum valor a ser sacado da %s.", this.tipoConta));
-			return;
+			return false;
 		}
 		if (valor > this.saldo) {
 			System.out.println(String.format("Valor do saque: R$ %.2f\nSaldo insuficiente na %s: R$ %.2f", valor, this.tipoConta, this.saldo));
-			return;
+			return false;
 		}
 		saldo-= valor;
 		System.out.println(String.format("Saque de R$ %.2f na %s.\nSaldo atual: R$ %.2f", valor, this.tipoConta, saldo));
+		return true;
 	}
 
 	@Override
-	public void depositar(double valor) {
+	public Boolean depositar(double valor) {
 		if (valor == 0d) {
 			System.out.println(String.format("Nenhum valor a ser depositado da %s.", this.tipoConta));
-			return;
+			return false;
 		}
 		saldo+= valor;
 		System.out.println(String.format("Deposito de R$ %.2f na %s.\nSaldo atual: R$ %.2f", valor, this.tipoConta, saldo));
+		return true;
 	}
 
 	@Override
-	// TODO: Adicionar dados da conta destno na mensagem 
 	public void transferir(double valor, IConta contaDestino) {
 		System.out.println(String.format("=== Transferência iniciada ==="));
-		this.sacar(valor);
-		contaDestino.depositar(valor);
-		System.out.println(String.format("Transferência de R$ %.2f da %s realizadada.", valor, this.getTipoConta()));
+		if (this.sacar(valor)) {
+			contaDestino.depositar(valor);
+		}
 		System.out.println(String.format("=== Transferência concluída ==="));
 	}
 
@@ -65,7 +66,7 @@ public abstract class Conta implements IConta {
 		return tipoConta;
 	}
 
-	private String verificaTipoConta() {
+	private String verificarTipoConta() {
 		String tipoConta = "Conta Bancária";
 		if (this instanceof ContaCorrente)
 		{
